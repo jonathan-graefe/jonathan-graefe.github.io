@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Research</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Jonathan Gräfe</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<div class="inner">
+						<h2>Menu</h2>
+						<ul class="links">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="research.html">Research</a></li>
+							<li><a href="publications.html">Publications</a></li>
+							<li><a href="cv.html">CV</a></li>
+							<li><a href="talks.html">Talks & Conferences</a></li>
+							<li><a href="ioaa.html">IOAA</a></li>
+							<li><a href="archery.html">Archery</a></li>
+						</ul>
+						<a href="#" class="close">Close</a>
+					</div>
+				</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Research</h2>
+								<p>Uncovering the mysteries of the early universe</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<h3 class="major">Cosmological Correlators for everyone</h3>
+									<p>Cosmological correlators are mathematical tools that describe how different parts of the universe are related to one another. Rather than predicting the exact position or motion of every particle, they capture patterns in the tiny fluctuations that filled the early universe and eventually grew into galaxies, stars, and planets. By comparing these predicted patterns with observations (such as maps of the cosmic microwave background or the distribution of galaxies) we can test theories of the universe's earliest moments and learn about the fundamental laws that shaped its evolution.</p>
+
+									<p>Quantum field theory provides the framework for calculating cosmological correlators. In this picture, the particles and forces we observe arise from underlying quantum fields, whose fluctuations were stretched across the universe during its earliest stages of expansion. Cosmological correlators quantify the statistical properties of these quantum fluctuations, allowing us to connect fundamental theories of particle physics with observable signatures in the large-scale structure of the universe.</p>
+
+									<h3 class="major">Analytic Methods for Cosmological Correlators</h3>
+									<p>In my own research I am mostly interested in developing analytic methods that allow us to compute these correlators. Starting from first principles, one can write down expressions for cosmological correlators order by order in perturbation theory. Like in particle physics, there exists a set of graphical Feynman rules that can be turned into mathematical expressions for these terms. However, the Feynman rules are much more involved compared to flat-space due to the more complicated functions that appear in the propagators and also the fact that energy is not conserved on a time-dependend background. The resulting integrals are in general hard to evaluate and we have to come up with clever ideas to apply the known techniques from flat-space scattering amplitudes to cosmological settings.</p>
+
+									<h3 class="major">Bubble Resummation</h3>
+									<p>Loop corrections to correlators on curved spacetime backgrounds are particularly cumbersome to deal with. And when it comes to processes with massive exchanges, not much is known beyond simple one-loop bubble diagrams (which themselves are far from trivial to compute). In my first project during the PhD, I combined two kinds of spectral representations (split representations and Källen-Lehmann representations) in order to evaluate chains of bubble loops. I was able to show that (given some symmetry properties of a rigid de Sitter background) these bubble chains actually factorize under the right choice of integral - much like in flat space. This allowed us to resum bubble loops in a geometric series on the level of the integrand. We applied this to a certain class of toy models (large N theories) and were able to discuss some features of the non-perturbative observables with the help of our results. </p>
+
+									<h3 class="major">Massive Tree Graphs</h3>
+									<p>On cosmological backgrounds it is not even necessary to go to the loop-level in order to encounter exotic special functions. Using spectral representations I have developed an algorithm to compute arbitrary tree-level diagrams with massive exchanges. It turns out that these massive correlators are made up of simpler building blocks that belong to the class of Lauricella hypergeometric functions (Lauricella type C to be precise), which are then glued together by spectral integrals. These integrals can be solved in a purely combinatorial way that is related to properties of the underlying graph. Computing nested integrals over products of Hankel functions is actually equivalent to solving a system of linear equations! The result is an expansion in terms of eigenfucntions of the differential operators that appear in the system of differential equations describing the correlator. On top of that, I found an infinite class of new <i>magical identities</i> for hypergeometric functions that still need to be understood.</p>
+
+
+									<section class="features">
+										<article>
+											<a href="publications.html" class="special">Publications</a>
+										</article>
+										<article>
+											<a href="talks.html" class="special">Talks and Conferences</a>
+										</article>
+									</section>
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Jonathan Gräfe. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>Background image credit: ESO / Illustris Collaboration </li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
