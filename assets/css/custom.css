@@ -233,8 +233,11 @@ ul.alt li {
 
 /* ---- Footer ---- */
 
+/* No box: the page background shows through at every screen size */
 #footer {
-	background-color: rgba(14, 12, 34, 0.85);
+	background: none;
+	margin-top: 0;
+	padding-top: 0;
 }
 
 /* ---- Accessibility ---- */
