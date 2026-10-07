@@ -73,7 +73,7 @@ h2.major:after, h3.major:after {
 /* ---- Spacing ---- */
 
 .wrapper {
-	margin: 6.5em 0;
+	margin: 2.4em 0;
 }
 
 .wrapper .inner {
@@ -244,7 +244,7 @@ a:focus-visible, button:focus-visible, .button:focus-visible {
 #page-wrapper .wrapper.style1,
 #page-wrapper .wrapper.style2,
 #page-wrapper .wrapper.style3 {
-	--w: 6.5em;
+	--w: 2.4em;
 	background: none;
 	isolation: isolate;
 }
@@ -731,5 +731,39 @@ body.is-preload #banner .actions {
 		padding: 0 1.1em;
 		font-size: 0.6em;
 		letter-spacing: 0.08em;
+	}
+}
+
+/* ---- Landing page details ---- */
+
+.video-card .video-caption p.summary {
+	margin: 0 0 0.6em 0;
+	font-size: 0.95em;
+	color: var(--ink-soft);
+}
+
+/* ---- News: date | text ---- */
+
+.news .entry {
+	grid-template-columns: 7em 1fr;
+	padding: 0.45em 0;
+}
+
+.news .entry p {
+	margin: 0;
+	font-size: 1em;
+}
+
+.news .entry .when {
+	padding-top: 0.1em;
+}
+
+details.earlier-news .news {
+	margin-top: 0.6em;
+}
+
+@media screen and (max-width: 736px) {
+	.news .entry {
+		grid-template-columns: 1fr;
 	}
 }
