@@ -1,0 +1,537 @@
+/*
+	Custom refinements on top of the Solid State template (main.css).
+	Loaded after main.css; delete this file and its <link> tags to revert.
+	Palette follows the background image: deep indigo, magenta/pink, warm orange.
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap");
+
+:root {
+	--accent: #a9b8ea;
+	--accent2: #c4a8d8;
+	--ink-soft: rgba(255, 255, 255, 0.82);
+	--card: rgba(255, 255, 255, 0.05);
+	--card-border: rgba(255, 255, 255, 0.12);
+}
+
+/* ---- Page background (compressed image instead of the 24 MB original) ---- */
+
+body {
+	background-color: #14132b;
+	background-image: linear-gradient(to top, rgba(10, 9, 26, 0.75), rgba(10, 9, 26, 0.75)), url("../../images/bg.jpg");
+}
+
+/* ---- Typography ---- */
+
+body, input, select, textarea {
+	font-family: "Inter", "Source Sans Pro", Helvetica, sans-serif;
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
+}
+
+p, li {
+	color: var(--ink-soft);
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Inter", Helvetica, sans-serif;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+}
+
+/* Headings with a short accent bar that follows the text alignment */
+h2.major, h3.major {
+	border-bottom: 0;
+	padding-bottom: 0;
+	margin-bottom: 1em;
+}
+
+h2.major:after, h3.major:after {
+	content: "";
+	display: block;
+	width: 2.6em;
+	height: 1px;
+	margin: 0.7em auto 0 0;
+	background: linear-gradient(to right, var(--accent), var(--accent2));
+}
+
+.wrapper.spotlight:nth-child(2n - 1) h2.major:after,
+.wrapper.spotlight:nth-child(2n - 1) h3.major:after {
+	margin: 0.7em 0 0 auto;
+	background: linear-gradient(to left, var(--accent), var(--accent2));
+}
+
+#banner h2, #wrapper > header h2 {
+	font-weight: 500;
+}
+
+#banner p, #wrapper > header p {
+	font-weight: 400;
+	color: rgba(255, 255, 255, 0.88);
+}
+
+/* ---- Spacing ---- */
+
+.wrapper {
+	margin: 6.5em 0;
+}
+
+.wrapper .inner {
+	padding: 2em 0 0.5em 0;
+}
+
+p {
+	margin: 0 0 1em 0;
+}
+
+/* ---- Links ---- */
+
+a {
+	transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+p a, li a {
+	color: var(--accent);
+	border-bottom: 1px solid rgba(169, 184, 234, 0.3);
+}
+
+p a:hover, li a:hover {
+	color: #ffffff !important;
+	border-bottom-color: var(--accent2);
+}
+
+/* ---- Header / menu ---- */
+
+#menu a, #menu li a, #header a {
+	color: #ffffff;
+	border-bottom: 0;
+}
+
+#menu .inner {
+	background-color: #2c2e52;
+}
+
+#menu li a:hover {
+	color: var(--accent) !important;
+}
+
+
+#header {
+	background-color: rgba(14, 12, 34, 0.7);
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+}
+
+#menu {
+	background-color: rgba(20, 19, 43, 0.96);
+}
+
+/* ---- Buttons ---- */
+
+.button, input[type="submit"], input[type="reset"], input[type="button"], button {
+	border-radius: 999px;
+	transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button.primary, .button.special {
+	background: linear-gradient(to right, var(--accent), var(--accent2));
+	color: #1a1533 !important;
+	opacity: 0.92;
+	box-shadow: none;
+}
+
+.button.primary:hover, .button.special:hover {
+	background: #ffffff;
+}
+
+/* ---- Content blocks ---- */
+
+.wrapper.spotlight .image {
+	box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
+}
+
+.features article {
+	background: var(--card);
+	border: 1px solid var(--card-border);
+	border-radius: 12px;
+	padding: 1.4em 1.3em;
+	transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.features article:hover {
+	border-color: rgba(255, 255, 255, 0.25);
+}
+
+.features article h3.major {
+	margin-bottom: 0.8em;
+}
+
+/* ---- Lists (talks, events, publications) ---- */
+
+ul.alt li {
+	border-top: 0;
+	padding: 0.4em 0;
+}
+
+/* ---- Video embed ---- */
+
+.video-card {
+	margin: 0 0 2em 0;
+	background: var(--card);
+	border: 1px solid var(--card-border);
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+}
+
+.video-card .video-frame {
+	position: relative;
+	padding-bottom: 56.25%;
+	height: 0;
+	background: #000;
+}
+
+.video-card .video-frame iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+.video-card .video-caption {
+	padding: 1em 1.3em 1.1em 1.3em;
+}
+
+.video-card .video-caption h4 {
+	margin: 0 0 0.2em 0;
+	font-size: 1em;
+	letter-spacing: 0;
+	text-transform: none;
+}
+
+.video-card .video-caption p {
+	margin: 0;
+	font-size: 0.9em;
+}
+
+/* ---- Footer ---- */
+
+#footer {
+	background-color: rgba(14, 12, 34, 0.85);
+}
+
+/* ---- Accessibility ---- */
+
+a:focus-visible, button:focus-visible, .button:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition: none !important;
+	}
+}
+
+/* ---- Section shapes ----
+	Each section and its two diagonal edges are drawn as ONE translucent shape
+	(clip-path), so there are no seams or overlaps between box and triangles. */
+
+#page-wrapper .wrapper,
+#page-wrapper .wrapper.spotlight,
+#page-wrapper .wrapper.style1,
+#page-wrapper .wrapper.style2,
+#page-wrapper .wrapper.style3 {
+	--w: 6.5em;
+	background: none;
+	isolation: isolate;
+}
+
+#page-wrapper .wrapper:before {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	left: 0;
+	right: 0;
+	top: calc(-1 * var(--w) - 1px);
+	bottom: calc(-1 * var(--w) - 1px);
+	height: auto;
+	width: auto;
+	background-image: none;
+	box-shadow: none;
+	transform: none;
+	clip-path: polygon(0 var(--w), 100% 0, 100% 100%, 0 calc(100% - var(--w)));
+}
+
+#page-wrapper .wrapper.alt:before {
+	clip-path: polygon(0 0, 100% var(--w), 100% calc(100% - var(--w)), 0 100%);
+}
+
+#page-wrapper .wrapper:after {
+	content: none;
+}
+
+/* Section colors (translucent, so the background image shows through) */
+#page-wrapper .wrapper:before { background-color: rgba(20,20,42,.86); }
+#page-wrapper .wrapper.style1:before { background-color: rgba(20,20,42,.86); }
+#page-wrapper .wrapper.style2:before { background-color: rgba(25,26,48,.86); }
+#page-wrapper .wrapper.style3:before { background-color: rgba(21,26,46,.86); }
+#page-wrapper .wrapper.spotlight:before { background-color: rgba(48,50,88,.86); }
+#page-wrapper .wrapper.spotlight.style1:before { background-color: rgba(48,50,88,.86); }
+#page-wrapper .wrapper.spotlight.style2:before { background-color: rgba(66,48,84,.86); }
+#page-wrapper .wrapper.spotlight.style3:before { background-color: rgba(40,56,96,.86); }
+
+/* ---- Publications ---- */
+
+.papers {
+	display: grid;
+	gap: 1em;
+}
+
+.paper, .topic {
+	background: var(--card);
+	border: 1px solid var(--card-border);
+	border-radius: 12px;
+	padding: 1.3em 1.5em;
+}
+
+.paper-meta {
+	display: flex;
+	align-items: center;
+	gap: 0.8em;
+	margin-bottom: 0.5em;
+	font-size: 0.75em;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.paper .badge {
+	padding: 0.15em 0.8em;
+	border-radius: 999px;
+	border: 1px solid var(--card-border);
+	color: var(--ink-soft);
+}
+
+.paper .badge.published {
+	border-color: var(--accent);
+	color: var(--accent);
+}
+
+.paper .year {
+	color: rgba(255, 255, 255, 0.55);
+}
+
+.paper h3 {
+	margin: 0 0 0.3em 0;
+	font-size: 1.05em;
+	line-height: 1.4;
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+.paper .authors {
+	margin: 0 0 0.8em 0;
+	font-size: 0.9em;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.paper-links {
+	margin: 0;
+	font-size: 0.85em;
+}
+
+.paper .paper-links a {
+	display: inline-block;
+	margin: 0 0.5em 0.3em 0;
+	padding: 0.1em 0.9em;
+	border: 1px solid rgba(169, 184, 234, 0.4);
+	border-radius: 999px;
+	transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.paper .paper-links a:hover {
+	background-color: rgba(169, 184, 234, 0.18);
+}
+
+/* ---- Research page: one continuous reading flow ---- */
+
+.prose {
+	max-width: 44em;
+	margin: 0 0 3em 0;
+}
+
+.prose p {
+	line-height: 1.75;
+}
+
+.prose p.lead {
+	font-size: 1.15em;
+	line-height: 1.7;
+	color: #ffffff;
+}
+
+.prose h3.major {
+	margin-top: 3.6em;
+}
+
+.prose p.paper-links {
+	margin-top: -0.2em;
+	margin-bottom: 2.4em;
+	font-size: 0.9em;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.prose p.paper-links a {
+	margin-left: 0.2em;
+}
+
+.video-card {
+	text-align: left;
+}
+
+/* ---- Link cards: even padding (remove the template's bottom margin on the link) ---- */
+
+.features article a.special {
+	margin: 0;
+}
+
+.features article:has(> a.special:only-child) {
+	display: flex;
+	align-items: center;
+	padding: 1.1em 1.4em;
+}
+
+/* ---- Collapsible abstracts ---- */
+
+.paper details.abstract {
+	margin-top: 0.8em;
+}
+
+.paper details.abstract summary {
+	display: inline-block;
+	cursor: pointer;
+	list-style: none;
+	font-size: 0.8em;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.7);
+	transition: color 0.2s ease;
+}
+
+.paper details.abstract summary::-webkit-details-marker {
+	display: none;
+}
+
+.paper details.abstract summary:before {
+	content: "+";
+	display: inline-block;
+	width: 1.2em;
+	color: var(--accent);
+}
+
+.paper details.abstract[open] summary:before {
+	content: "\2212";
+}
+
+.paper details.abstract summary:hover {
+	color: #ffffff;
+}
+
+.paper details.abstract p {
+	margin: 0.8em 0 0 0;
+	padding-left: 1em;
+	border-left: 1px solid var(--card-border);
+	font-size: 0.9em;
+	line-height: 1.7;
+}
+
+/* ---- Timelines (CV, talks) ---- */
+
+.prose.wide {
+	max-width: 50em;
+}
+
+.prose h3.major:first-child {
+	margin-top: 0;
+}
+
+.timeline {
+	margin-bottom: 1em;
+}
+
+.entry {
+	display: grid;
+	grid-template-columns: 9em 1fr;
+	gap: 1.4em;
+	padding: 0.65em 0;
+}
+
+.entry .when {
+	padding-top: 0.2em;
+	font-size: 0.85em;
+	letter-spacing: 0.04em;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.entry h4 {
+	margin: 0 0 0.2em 0;
+	font-size: 1em;
+	line-height: 1.4;
+	text-transform: none;
+	letter-spacing: 0;
+}
+
+.entry p {
+	margin: 0 0 0.3em 0;
+	font-size: 0.95em;
+	line-height: 1.6;
+}
+
+.entry p.where {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.entry p:last-child {
+	margin-bottom: 0;
+}
+
+@media screen and (max-width: 736px) {
+	.entry {
+		grid-template-columns: 1fr;
+		gap: 0.2em;
+	}
+}
+
+/* ---- Archery: readable text width, full-width pictures ---- */
+
+.prose-flow > p {
+	font-size: 1.05em;
+	line-height: 1.8;
+}
+
+.prose-flow .image.right {
+	margin-left: 1.5em;
+}
+
+.prose-flow .box.alt {
+	margin-bottom: 2em;
+}
+
+/* ---- Photo gallery + lightbox ---- */
+
+.gallery .gallery-item {
+	cursor: zoom-in;
+	overflow: hidden;
+	border-radius: 10px;
+}
+
+.gallery .gallery-item img {
+	transition: transform 0.35s ease, filter 0.35s ease;
+}
+
+.gallery .gallery-item:hover img {
+	transform: scale(1.04);
+	filter: brightness(1.08);
+}
