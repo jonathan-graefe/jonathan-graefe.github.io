@@ -18,7 +18,26 @@
 
 body {
 	background-color: #14132b;
+	background-image: none;
+	background-attachment: scroll;
+}
+
+/* A fixed layer instead of background-attachment: fixed, which jumps on phones */
+body:before {
+	content: "";
+	position: fixed;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	height: 100lvh;
+	background-color: #14132b;
 	background-image: linear-gradient(to top, rgba(10, 9, 26, 0.75), rgba(10, 9, 26, 0.75)), url("../../images/bg.jpg");
+	background-size: auto, cover;
+	background-position: center, center;
+	background-repeat: no-repeat;
+	pointer-events: none;
 }
 
 /* ---- Typography ---- */
@@ -55,11 +74,6 @@ h2.major:after, h3.major:after {
 	background: linear-gradient(to right, var(--accent), var(--accent2));
 }
 
-.wrapper.spotlight:nth-child(2n - 1) h2.major:after,
-.wrapper.spotlight:nth-child(2n - 1) h3.major:after {
-	margin: 0.7em 0 0 auto;
-	background: linear-gradient(to left, var(--accent), var(--accent2));
-}
 
 #banner h2, #wrapper > header h2 {
 	font-weight: 500;
@@ -77,7 +91,8 @@ h2.major:after, h3.major:after {
 }
 
 .wrapper .inner {
-	padding: 2em 0 0.5em 0;
+	padding-top: 2em;
+	padding-bottom: 0.5em;
 }
 
 p {
@@ -358,7 +373,6 @@ a:focus-visible, button:focus-visible, .button:focus-visible {
 /* ---- Research page: one continuous reading flow ---- */
 
 .prose {
-	max-width: 44em;
 	margin: 0 0 3em 0;
 }
 
@@ -450,7 +464,7 @@ a:focus-visible, button:focus-visible, .button:focus-visible {
 /* ---- Timelines (CV, talks) ---- */
 
 .prose.wide {
-	max-width: 50em;
+	max-width: none;
 }
 
 .prose h3.major:first-child {
@@ -765,5 +779,44 @@ details.earlier-news .news {
 @media screen and (max-width: 736px) {
 	.news .entry {
 		grid-template-columns: 1fr;
+	}
+}
+
+/* ---- Subpages: title and content share one centered column ---- */
+
+#wrapper > header .inner,
+#wrapper > header ~ .wrapper .inner {
+	max-width: 46em;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* ---- Landing page: same alignment in every section ---- */
+
+#page-wrapper .wrapper.spotlight:nth-child(n) .inner {
+	flex-direction: row;
+	text-align: left;
+}
+
+#page-wrapper .wrapper.spotlight:nth-child(n) .image {
+	margin: 0 3em 2em 0;
+}
+
+@media screen and (max-width: 980px) {
+	#page-wrapper .wrapper.spotlight:nth-child(n) .image {
+		margin: 0 2em 2em 0;
+	}
+}
+
+@media screen and (max-width: 736px) {
+	#page-wrapper .wrapper.spotlight:nth-child(n) .inner {
+		display: block;
+	}
+
+	#page-wrapper .wrapper.spotlight:nth-child(n) .image {
+		display: block;
+		width: 11em;
+		max-width: 70%;
+		margin: 0 0 1.4em 0 !important;
 	}
 }
