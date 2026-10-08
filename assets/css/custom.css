@@ -1083,3 +1083,73 @@ details.earlier-news .news {
 	fill: rgba(255, 255, 255, 0.6);
 	font-size: 28px;
 }
+
+/* ---- Page links (end of the research page) ---- */
+
+ul.page-links {
+	display: flex;
+	flex-direction: row !important;
+	align-items: flex-start !important;
+	justify-content: flex-start !important;
+	flex-wrap: wrap;
+	gap: 0.8em;
+	margin: 2.6em 0 1em 0;
+	padding: 0;
+	list-style: none;
+}
+
+ul.page-links li {
+	padding: 0;
+}
+
+ul.page-links .button {
+	white-space: nowrap;
+}
+
+ul.page-links li {
+	flex: 0 0 auto !important;
+	width: auto !important;
+	margin: 0 !important;
+	text-align: left;
+}
+
+ul.page-links .button {
+	display: inline-block !important;
+	width: auto !important;
+	min-width: 0 !important;
+	padding: 0 2em !important;
+}
+
+/* ---- Cards: the whole card is the link ---- */
+
+.features article {
+	position: relative;
+}
+
+.features article a.card-link {
+	display: inline-block;
+	margin: 0.4em 0 0 0;
+	font-size: 0.9em;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	color: var(--accent);
+	border-bottom: 0;
+	text-transform: none;
+}
+
+.features article a.card-link:after {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.features article:hover a.card-link {
+	color: #ffffff;
+}
+
+.features article:hover {
+	cursor: pointer;
+}
