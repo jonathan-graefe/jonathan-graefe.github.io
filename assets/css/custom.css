@@ -823,3 +823,263 @@ details.earlier-news .news {
 		margin: 0 0 1.4em 0 !important;
 	}
 }
+
+/* ---- Figures on the research page ---- */
+
+.research-figure {
+	margin: 1.8em 0 1.4em 0;
+}
+
+.research-figure .fig-panels {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.8em;
+}
+
+.research-figure .fig-panels.single {
+	grid-template-columns: 1fr;
+}
+
+.research-figure .fig-panels a.image {
+	display: block;
+	margin: 0;
+	background: #ffffff;
+	border-radius: 10px;
+	border-bottom: 0;
+}
+
+.research-figure .fig-panels img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 0;
+	padding: 0.5em;
+}
+
+.research-figure figcaption {
+	margin-top: 0.8em;
+	font-size: 0.85em;
+	line-height: 1.6;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.research-figure figcaption .fig-source {
+	display: block;
+	margin-top: 0.3em;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+@media screen and (max-width: 736px) {
+	.research-figure .fig-panels {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ---- Diagram figure: chain of bubble loops ---- */
+
+.research-figure.diagram {
+	padding: 1.4em 1.2em 1em 1.2em;
+	background: var(--card);
+	border: 1px solid var(--card-border);
+	border-radius: 12px;
+}
+
+.research-figure.diagram svg {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.research-figure.diagram .leg {
+	stroke: rgba(255, 255, 255, 0.85);
+	stroke-width: 2;
+	stroke-linecap: round;
+}
+
+.research-figure.diagram .v {
+	fill: #ffffff;
+}
+
+.research-figure.diagram .loop {
+	fill: none;
+	stroke: var(--accent);
+	stroke-width: 2.4;
+}
+
+.research-figure.diagram .op {
+	fill: rgba(255, 255, 255, 0.7);
+	font-family: "Inter", sans-serif;
+	font-size: 30px;
+}
+
+.research-figure .formula {
+	margin: 0.6em 0 0.4em 0;
+	text-align: center;
+	font-size: 1.2em;
+	line-height: 2;
+	color: #ffffff;
+}
+
+.research-figure .formula .sumop {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	vertical-align: middle;
+	margin-right: 0.15em;
+	line-height: 1;
+}
+
+.research-figure .formula .sumop .sigma {
+	font-size: 1.7em;
+	line-height: 1;
+}
+
+.research-figure .formula .sumop .lim {
+	font-size: 0.55em;
+	line-height: 1.2;
+}
+
+.research-figure .formula .fraction {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	line-height: 1.3;
+}
+
+.research-figure .formula .fraction > span {
+	display: block;
+	padding: 0 0.3em;
+}
+
+.research-figure .formula .fraction > span:first-child {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+/* ---- Roadmap diagram ---- */
+
+.research-figure.roadmap svg .hl-red { fill: rgba(255, 140, 140, 0.22); }
+.research-figure.roadmap svg .hl-blue { fill: rgba(130, 175, 255, 0.24); }
+.research-figure.roadmap svg .hl-green { fill: rgba(130, 220, 150, 0.22); }
+
+.research-figure.roadmap svg .leg { stroke-width: 4; }
+
+.research-figure.roadmap svg .ar {
+	fill: none;
+	stroke-width: 4;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.research-figure.roadmap svg .a-red { stroke: #ff9d9d; }
+.research-figure.roadmap svg .a-blue { stroke: #8fb6ff; }
+.research-figure.roadmap svg .a-green { stroke: #8fe0a2; }
+.research-figure.roadmap svg .a-white { stroke: rgba(255, 255, 255, 0.9); }
+
+.research-figure.roadmap svg .lab {
+	font-family: "Inter", sans-serif;
+	font-size: 54px;
+	font-weight: 500;
+}
+
+.research-figure.roadmap svg .t-red { fill: #ff9d9d; }
+.research-figure.roadmap svg .t-blue { fill: #8fb6ff; }
+.research-figure.roadmap svg .t-green { fill: #8fe0a2; }
+
+/* ---- Intro diagram: from fluctuations to patterns ---- */
+
+.intro-diagram svg .ring {
+	fill: rgba(255, 255, 255, 0.03);
+	stroke: rgba(255, 255, 255, 0.6);
+	stroke-width: 2;
+}
+
+.intro-diagram svg .wave {
+	fill: none;
+	stroke: var(--accent);
+	stroke-width: 3;
+	stroke-linecap: round;
+}
+
+.intro-diagram svg .gal { fill: #ffffff; }
+
+.intro-diagram svg .hi { fill: var(--accent); }
+
+.intro-diagram svg .corr {
+	stroke: var(--accent);
+	stroke-width: 2.4;
+	stroke-dasharray: 7 7;
+	stroke-linecap: round;
+}
+
+.intro-diagram svg .ar {
+	fill: none;
+	stroke: rgba(255, 255, 255, 0.85);
+	stroke-width: 3;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.intro-diagram svg .lab {
+	fill: rgba(255, 255, 255, 0.88);
+	font-family: "Inter", sans-serif;
+	font-size: 34px;
+}
+
+.intro-diagram svg .lab.dim {
+	fill: rgba(255, 255, 255, 0.6);
+	font-size: 30px;
+}
+
+.intro-diagram svg .lab.small {
+	font-size: 30px;
+}
+
+.intro-diagram svg .lab.t-acc {
+	fill: var(--accent);
+}
+
+.intro-diagram svg .lab.halo {
+	stroke: #1b1a33;
+	stroke-width: 8px;
+	paint-order: stroke;
+	stroke-linejoin: round;
+}
+
+/* ---- Analytic methods: Feynman diagrams ---- */
+
+.feyn-diagram svg .prop {
+	fill: none;
+	stroke: var(--accent);
+	stroke-width: 2.6;
+	stroke-linecap: round;
+}
+
+.feyn-diagram svg .bdry {
+	stroke: rgba(255, 255, 255, 0.5);
+	stroke-width: 2;
+	stroke-dasharray: 9 8;
+}
+
+.feyn-diagram svg .end {
+	fill: #1b1a33;
+	stroke: rgba(255, 255, 255, 0.85);
+	stroke-width: 2;
+}
+
+.feyn-diagram svg .eta {
+	fill: var(--accent);
+	font-family: "Inter", sans-serif;
+	font-style: italic;
+	font-size: 32px;
+}
+
+.feyn-diagram svg .lab {
+	fill: rgba(255, 255, 255, 0.88);
+	font-family: "Inter", sans-serif;
+	font-size: 34px;
+}
+
+.feyn-diagram svg .lab.dim {
+	fill: rgba(255, 255, 255, 0.6);
+	font-size: 28px;
+}
