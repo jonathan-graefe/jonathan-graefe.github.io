@@ -1329,3 +1329,74 @@ p.photo-credit {
 a.gallery-item {
 	cursor: zoom-in;
 }
+
+/* ---- Smooth open/close (details.js) ---- */
+
+.details-body {
+	overflow: hidden;
+}
+
+/* ---- Motion ---- */
+
+@keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes reveal-up {
+	from { opacity: 0; transform: translateY(14px); }
+	to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	body { animation: page-in 0.5s ease; }
+
+	body.is-leaving {
+		opacity: 0;
+		transition: opacity 0.18s ease;
+	}
+
+	html.reveal-ready .reveal { opacity: 0; }
+
+	html.reveal-ready .reveal.is-visible {
+		animation: reveal-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+	}
+}
+
+@media print {
+	html.reveal-ready .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* Plus sign that turns into a minus (abstracts, earlier news) */
+.paper details.abstract summary,
+details.earlier-news summary {
+	position: relative;
+	padding-left: 1.5em;
+}
+
+.paper details.abstract summary:before,
+.paper details.abstract summary:after,
+details.earlier-news summary:before,
+details.earlier-news summary:after {
+	content: "";
+	position: absolute;
+	left: 0.1em;
+	top: 50%;
+	width: 0.75em;
+	height: 1.6px;
+	margin: -0.8px 0 0 0;
+	background: var(--accent);
+	border-radius: 1px;
+	transition: transform 0.3s ease;
+}
+
+.paper details.abstract summary:after,
+details.earlier-news summary:after {
+	transform: rotate(90deg);
+}
+
+.paper details.abstract[open] summary:before,
+details.earlier-news[open] summary:before {
+	content: "";
+}
+
+.paper details.abstract[open]:not(.closing) summary:after,
+details.earlier-news[open]:not(.closing) summary:after {
+	transform: rotate(0deg);
+}
