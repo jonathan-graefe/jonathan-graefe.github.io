@@ -1940,3 +1940,12 @@ details.ct-config > summary > span {
 		transition: none;
 	}
 }
+
+/* A closed colouring block must not keep any space of its (emptied) content, in any browser */
+details.ct-config:not([open]) > .ct-config-body {
+	display: none;
+}
+
+details.ct-config::details-content {
+	contain-intrinsic-size: none;
+}

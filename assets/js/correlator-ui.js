@@ -481,27 +481,32 @@
 	}
 	fe.copy.addEventListener('click', function () { copyText(full.tex.join('\n\n'), fe.copy, 'Copy all LaTeX'); });
 
-	/* Typesetting is the slow part. The whole page skeleton is built at once (cheap), one job is queued per
-	   equation, and the queue is worked off in short time slices so that the progress bar and the page stay
-	   responsive. */
+	/* Time-sliced task runner: keeps the page (and the progress bar) responsive while typesetting. */
+	function runTasks(tasks, alive, onStep, onDone) {
+		var total = tasks.length, done = 0;
+		function pump() {
+			if (!alive()) return;
+			var t0 = performance.now();
+			while (done < total && performance.now() - t0 < 24) { tasks[done++](); }
+			if (onStep) onStep(done, total);
+			if (done < total) setTimeout(pump, 0);
+			else if (onDone) onDone();
+		}
+		pump();
+	}
+
+	/* The model is turned into strings up front (cheap), but a colouring is only typeset while its block is
+	   open: opening a block fills it, closing it empties it again. Closed blocks therefore contain no DOM at
+	   all, which keeps the page short, fast and free of hidden layout. */
 	function renderFull(M, token) {
 		full.tex = [];
 		fe.configs.innerHTML = '';
 		fe.result.hidden = false;
-		var jobs = [];
+		var headTasks = [];
 
-		function eqDiv(parent, src) {
-			var d = document.createElement('div');
-			d.className = 'ct-formula ct-eq';
-			parent.appendChild(d);
-			jobs.push(function () { tex(d, src); });
-			return d;
-		}
-
-		/* header: master formula, region, notation */
 		var masterSrc = CorrFull.masterTex(M);
 		full.tex.push('% ' + CorrFull.orderTex(M), masterSrc);
-		jobs.push(function () { tex(fe.master, masterSrc); });
+		headTasks.push(function () { tex(fe.master, masterSrc); });
 
 		var conds = [CorrFull.orderTex(M)].concat(CorrFull.conditionTex(M));
 		fe.valid.innerHTML = '';
@@ -509,7 +514,7 @@
 			var sp = document.createElement('span');
 			sp.className = 'ct-cond';
 			fe.valid.appendChild(sp);
-			jobs.push(function () { tex(sp, c, false); });
+			headTasks.push(function () { tex(sp, c, false); });
 			if (i < conds.length - 1) fe.valid.appendChild(document.createTextNode(', '));
 		});
 
@@ -519,15 +524,35 @@
 			row.className = 'ct-def'; name.className = 'ct-def-name'; m.className = 'ct-def-math';
 			name.textContent = r[0];
 			row.appendChild(name); row.appendChild(m); fe.defs.appendChild(row);
-			jobs.push(function () { tex(m, r[1], true); });
+			headTasks.push(function () { tex(m, r[1], true); });
 		});
-		fe.count.textContent = M.configs.length + ' colourings, ' + CorrFull.termCount(M) + ' terms. Each block below is one colouring; its complex conjugate is added.';
+		fe.count.textContent = M.configs.length + ' colourings, ' + CorrFull.termCount(M) +
+			' terms. Each block is one colouring (its complex conjugate is added); a block is typeset when you open it.';
 
-		/* one block per colouring */
+		/* what a block contains, as plain data */
+		function planFor(c) {
+			var plan = [], headTex = CorrFull.configHead(M, c);
+			full.tex.push('% colouring ' + CorrFull.configName(M, c), headTex);
+			plan.push({ k: 'eq', tex: headTex });
+			c.clusters.forEach(function (K) {
+				if (K.verts.length === 1) return;
+				plan.push({ k: 'title', html: 'Cluster of vertices ' + K.verts.join(', ') + (K.color > 0 ? ' (+)' : ' (−, complex-conjugate of the + expression)') });
+				var sumTex = CorrFull.clusterName(K) + '=\\sum_{\\mathcal D\\subseteq\\text{lines}}\\Phi^{(\\mathcal D)}_{' + CorrFull.sub(K.verts) + '}';
+				full.tex.push(sumTex);
+				plan.push({ k: 'eq', tex: sumTex });
+				K.terms.forEach(function (T) {
+					var tt = CorrFull.termTex(M, K, T);
+					plan.push({ k: 'cap', text: !T.D.length ? 'all lines analytic' : (!T.A.length ? 'all lines on shell' : tt.title) });
+					tt.eqs.forEach(function (eq) { full.tex.push(eq); plan.push({ k: 'eq', tex: eq }); });
+				});
+			});
+			return plan;
+		}
+
+		var firstTasks = [];
 		M.configs.forEach(function (c, i) {
 			var det = document.createElement('details');
 			det.className = 'earlier-news ct-config';
-			if (i === 0) det.open = true;
 			var sm = document.createElement('summary');
 			sm.appendChild(miniDiagram(c.col));
 			var lab = document.createElement('span');
@@ -538,50 +563,56 @@
 			body.className = 'ct-config-body';
 			det.appendChild(body);
 
-			var headTex = CorrFull.configHead(M, c);
-			full.tex.push('% colouring ' + CorrFull.configName(M, c), headTex);
-			eqDiv(body, headTex);
+			var plan = planFor(c), state = 'empty', gen = 0;
 
-			c.clusters.forEach(function (K) {
-				if (K.verts.length === 1) return;
-				var title = document.createElement('p');
-				title.className = 'ct-cluster-title';
-				title.innerHTML = 'Cluster of vertices ' + K.verts.join(', ') + (K.color > 0 ? ' (+)' : ' (−, complex-conjugate of the + expression)');
-				body.appendChild(title);
-				var sumTex = CorrFull.clusterName(K) + '=\\sum_{\\mathcal D\\subseteq\\text{lines}}\\Phi^{(\\mathcal D)}_{' + CorrFull.sub(K.verts) + '}';
-				full.tex.push(sumTex);
-				eqDiv(body, sumTex);
-				K.terms.forEach(function (T) {
-					var tt = CorrFull.termTex(M, K, T);
-					var cap = document.createElement('p');
-					cap.className = 'ct-term-title';
-					cap.textContent = !T.D.length ? 'all lines analytic' : (!T.A.length ? 'all lines on shell' : tt.title);
-					body.appendChild(cap);
-					tt.eqs.forEach(function (eq) { full.tex.push(eq); eqDiv(body, eq); });
+			function tasksFor(my) {
+				return plan.map(function (it) {
+					return function () {
+						if (my !== gen) return;
+						var el = document.createElement(it.k === 'eq' ? 'div' : 'p');
+						if (it.k === 'eq') { el.className = 'ct-formula ct-eq'; body.appendChild(el); tex(el, it.tex); return; }
+						el.className = it.k === 'title' ? 'ct-cluster-title' : 'ct-term-title';
+						if (it.k === 'title') el.innerHTML = it.html; else el.textContent = it.text;
+						body.appendChild(el);
+					};
 				});
-			});
+			}
+			function fill() {
+				if (state !== 'empty') return;
+				state = 'filling';
+				var my = ++gen;
+				body.textContent = '';
+				runTasks(tasksFor(my), function () { return my === gen && token === full.token; }, null, function () { state = 'full'; });
+			}
+			function empty() {
+				gen++; state = 'empty';
+				body.textContent = '';
+			}
+			det.addEventListener('toggle', function () { if (det.open) fill(); else empty(); });
+
+			if (i === 0) {
+				/* the first block starts open and is typeset together with the header, under the progress bar */
+				det.open = true; state = 'filling';
+				var my0 = ++gen;
+				firstTasks = tasksFor(my0);
+				det._firstDone = function () { if (my0 === gen) state = 'full'; };
+				fe._first = det;
+			}
 			fe.configs.appendChild(det);
 		});
 
-		var total = jobs.length, done = 0;
-		function label() { return 'Typesetting ' + done + ' of ' + total + ' equations · ' + Math.round(100 * done / total) + '%'; }
-		setProgress(0, label());
-
-		function pump() {
-			if (token !== full.token) return;
-			var t0 = performance.now();
-			while (jobs.length && performance.now() - t0 < 24) { jobs.shift()(); done++; }
-			if (jobs.length) {
-				setProgress(done / total, label());
-				setTimeout(pump, 0);
-			} else {
-				setProgress(1, 'Done · ' + total + ' equations');
+		var tasks = headTasks.concat(firstTasks);
+		function label(done, total) { return 'Typesetting ' + done + ' of ' + total + ' equations · ' + Math.round(100 * done / total) + '%'; }
+		setProgress(0, label(0, tasks.length));
+		runTasks(tasks, function () { return token === full.token; },
+			function (done, total) { if (done < total) setProgress(done / total, label(done, total)); },
+			function () {
+				if (fe._first && fe._first._firstDone) fe._first._firstDone();
+				setProgress(1, 'Done');
 				fe.note.textContent = 'Done.';
 				full.busy = false; fe.run.disabled = false;
-				setTimeout(function () { if (token === full.token) setProgress(null); }, 1200);
-			}
-		}
-		pump();
+				setTimeout(function () { if (token === full.token) setProgress(null); }, 900);
+			});
 	}
 
 	fe.run.addEventListener('click', function () {
