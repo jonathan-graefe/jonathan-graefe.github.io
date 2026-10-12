@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Correlator Tool</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/custom.css?v=40238257" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Jonathan Gräfe</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<div class="inner">
+						<h2>Menu</h2>
+						<ul class="links">
+							<li><a href="index.html">Home</a></li>
+							<li><a href="research.html">Research</a></li>
+							<li><a href="correlator-tool.html">Correlator Tool</a></li>
+							<li><a href="publications.html">Publications</a></li>
+							<li><a href="cv.html">CV</a></li>
+							<li><a href="talks.html">Talks & Conferences</a></li>
+							<li><a href="ioaa.html">IOAA</a></li>
+							<li><a href="archery.html">Archery</a></li>
+						</ul>
+						<a href="#" class="close">Close</a>
+					</div>
+				</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Correlator Tool</h2>
+								<p>Draw a tree graph, get the massive correlator</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+
+									<article class="prose">
+										<p class="lead">Draw a tree graph, pick a root, and read off the series for the corresponding fully nested massive correlator, computed with the spectral gluing algorithm of <a href="https://arxiv.org/abs/2607.18223">arXiv:2607.18223</a>. An optional second step assembles the full correlator, with all on-shell terms and every Schwinger&ndash;Keldysh component.</p>
+
+										<h3 class="major">1. Draw the graph</h3>
+										<p>Every dot is a bulk vertex (with external energy <i>X</i><sub><i>i</i></sub> and twist <i>p</i><sub><i>i</i></sub>), every line a massive exchange (with internal energy <i>Y</i><sub><i>ij</i></sub> and mass parameter <i>&mu;</i><sub><i>ij</i></sub>). Start from an example or build your own, then pick the <b>root</b>: the vertex whose energy is the largest one in the kinematic region you are interested in.</p>
+
+										<div class="ct-card">
+											<div class="ct-toolbar" role="toolbar" aria-label="Drawing tools">
+												<button type="button" class="ct-tool" data-tool="move" aria-pressed="true">Move</button>
+												<button type="button" class="ct-tool" data-tool="vertex" aria-pressed="false">Add vertex</button>
+												<button type="button" class="ct-tool" data-tool="edge" aria-pressed="false">Add edge</button>
+												<button type="button" class="ct-tool" data-tool="root" aria-pressed="false">Set root</button>
+												<button type="button" class="ct-tool" data-tool="erase" aria-pressed="false">Erase</button>
+												<span class="ct-spacer"></span>
+												<button type="button" class="ct-tool ct-ghost" id="ct-clear">Clear</button>
+											</div>
+											<svg id="ct-canvas" viewBox="0 0 800 420" role="img" aria-label="Drawing area for the tree graph"></svg>
+											<p class="ct-hint" id="ct-hint"></p>
+											<p class="ct-status" id="ct-status" role="status" aria-live="polite"></p>
+											<div class="ct-presets">
+												<span>Examples</span>
+												<button type="button" class="ct-chip" data-preset="two">Two-site chain</button>
+												<button type="button" class="ct-chip" data-preset="three">Three-site chain</button>
+												<button type="button" class="ct-chip" data-preset="star">Star</button>
+												<button type="button" class="ct-chip" data-preset="five">Five-site graph</button>
+											</div>
+										</div>
+
+										<h3 class="major">2. The formula</h3>
+
+										<p class="ct-placeholder" id="ct-placeholder">Add at least one vertex.</p>
+
+										<div id="ct-result" hidden>
+											<p class="ct-rootinfo" id="ct-rootinfo"></p>
+											<div class="ct-card ct-formula-card">
+												<div class="ct-formula" id="ct-formula"></div>
+												<div class="ct-formula ct-coef" id="ct-coef"></div>
+												<div class="ct-actions"><button type="button" class="ct-chip" id="ct-copy">Copy LaTeX</button></div>
+											</div>
+
+											<p>Here <i>m</i><sub><i>i</i></sub> is the summation index attached to the line joining vertex <i>i</i> to its parent (the root has none). The notation used above is collected here:</p>
+
+											<div class="ct-card ct-defs" id="ct-defs"></div>
+											<p class="ct-region">The series converges for <span id="ct-region"></span>, and each leaf satisfies <i>Y</i> &le; <i>X</i>.</p>
+
+											<details class="earlier-news" id="ct-steps">
+												<summary>How the tool got there</summary>
+												<p>Orienting every line away from the root gives the incidence matrix <i>Q</i> (entry &minus;1 where a line leaves a vertex, +1 where it arrives). Deleting the root row gives the reduced matrix <i>Q</i><sub><i>r</i></sub>, and the on-shell condition <i>Q</i><sub><i>r</i></sub><b>x</b> = &minus;(<b>p&#771;</b><sub>(<i>r</i>)</sub> + <b>m</b>) is solved by the path matrix <i>P</i><sub><i>r</i></sub> = <i>Q</i><sub><i>r</i></sub><sup>&minus;1</sup>, whose columns record the path from the root to each other vertex.</p>
+												<div class="ct-matrices">
+													<div class="ct-formula" id="ct-Q"></div>
+													<div class="ct-formula" id="ct-Qr"></div>
+													<div class="ct-formula" id="ct-P"></div>
+												</div>
+												<p>The on-shell values of the spectral variables are <b>x</b><sup>*</sup> = &minus;<i>P</i><sub><i>r</i></sub>(<b>p&#771;</b><sub>(<i>r</i>)</sub> + <b>m</b>):</p>
+												<div class="ct-formula" id="ct-xstar"></div>
+											</details>
+										</div>
+
+										<h3 class="major">3. The full correlator <span class="ct-optional">optional</span></h3>
+										<p>For the full correlator every vertex sits on one of the two branches of the in-in contour, which gives 2<sup><i>V</i></sup> colourings of the graph (complex-conjugate pairs are combined). A line between two vertices of the same colour carries a time-ordered propagator. Its spectral density splits into an <i>on-shell</i> part, which cuts the line, and an <i>analytic</i> part, which is glued with the algorithm above. Lines between different colours are already factorised. The tool writes out every resulting term.</p>
+										<p>Which end of a cut line carries the Boltzmann weights <i>e</i><sup>&plusmn;&pi;&mu;</sup>, and which vertex roots each analytic piece, depends on how the energies <i>X</i><sub><i>i</i></sub> compare. Order the vertices by energy, largest first. By default the order follows the tree away from the root chosen above.</p>
+
+										<div class="ct-card" id="ct-full-card">
+											<p class="ct-order-label">Energy ordering</p>
+											<div class="ct-order" id="ct-order" role="list" aria-label="Vertices ordered by energy, largest first"></div>
+											<div class="ct-row">
+												<button type="button" class="ct-chip ct-primary" id="ct-full-run">Compute full correlator</button>
+												<button type="button" class="ct-chip" id="ct-order-reset">Reset ordering</button>
+											</div>
+											<div class="ct-progress" id="ct-progress" role="progressbar" aria-label="Computing the full correlator" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" hidden>
+												<div class="ct-progress-track"><span class="ct-progress-fill" id="ct-progress-fill"></span></div>
+												<p class="ct-progress-label" id="ct-progress-label">Preparing terms&hellip;</p>
+											</div>
+											<p class="ct-hint" id="ct-full-note" aria-live="polite"></p>
+										</div>
+
+										<div id="ct-full-result" hidden>
+											<div class="ct-card ct-formula-card">
+												<div class="ct-formula" id="ct-full-master"></div>
+											</div>
+											<p class="ct-region" id="ct-full-valid-wrap">The series converge in the region <span id="ct-full-valid"></span>. In addition, the Lauricella functions need &sum;<sub><i>j</i></sub> <i>u</i><sub><i>ij</i></sub> &lt; 1 at every vertex.</p>
+											<div class="ct-card ct-defs" id="ct-full-defs"></div>
+											<p class="ct-actions-right"><button type="button" class="ct-chip" id="ct-full-copy">Copy all LaTeX</button></p>
+											<p class="ct-hint" id="ct-full-count"></p>
+											<div id="ct-configs"></div>
+										</div>
+
+										<h3 class="major">What is computed</h3>
+										<p>The first formula is the <i>maximally-nested analytic</i> contribution to the all-plus (fully time-ordered) master integral, obtained in Sec. 4.2 of the paper by setting the spectral parameters of the principal-value part on shell. The optional full correlator adds the on-shell terms of every time-ordered line and all Schwinger&ndash;Keldysh components. Both assume generic twists and masses; for special values of <i>p&#771;</i><sub><i>i</i></sub> some lower parameters of the Lauricella functions can hit non-positive integers and the series has to be treated by a limit.</p>
+										<p>Choosing a different root, or a different energy ordering, gives the expansion in a different kinematic region, so it is worth trying several on the same graph.</p>
+										<p class="paper-links">Read the paper: <a href="https://arxiv.org/abs/2607.18223">All Tree-Level Massive Cosmological Correlators via Spectral Gluing</a></p>
+									</article>
+
+									<ul class="actions page-links">
+										<li><a href="research.html" class="button primary">Research</a></li>
+										<li><a href="publications.html" class="button">Publications</a></li>
+									</ul>
+
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					<section id="footer">
+						<div class="inner">
+							<ul class="copyright">
+								<li>&copy; Jonathan Gräfe. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>Background image credit: ESO / Illustris Collaboration </li>
+							</ul>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="assets/js/motion.js?v=2"></script>
+			<script src="assets/js/details.js"></script>
+			<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+			<script defer src="assets/js/correlator-core.js?v=4"></script>
+			<script defer src="assets/js/correlator-full.js?v=4"></script>
+			<script defer src="assets/js/correlator-ui.js?v=8"></script>
+
+	</body>
+</html>

@@ -1400,3 +1400,543 @@ details.earlier-news[open] summary:before {
 details.earlier-news[open]:not(.closing) summary:after {
 	transform: rotate(0deg);
 }
+
+/* ---- Correlator tool ---- */
+
+[hidden] {
+	display: none !important;
+}
+
+.ct-card {
+	margin: 1.4em 0;
+	padding: 1.1em 1.2em;
+	background: var(--card);
+	border: 1px solid var(--card-border);
+	border-radius: 12px;
+}
+
+.ct-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5em;
+	margin-bottom: 0.9em;
+}
+
+.ct-spacer {
+	flex: 1 1 auto;
+}
+
+.ct-tool, .ct-chip {
+	display: inline-block;
+	width: auto;
+	height: auto;
+	min-width: 0;
+	margin: 0;
+	padding: 0.45em 1.1em;
+	line-height: 1.4;
+	font-size: 0.8em;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: none;
+	color: #ffffff;
+	background: transparent;
+	border: 1px solid var(--card-border);
+	border-radius: 999px;
+	box-shadow: none;
+	cursor: pointer;
+	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.ct-tool:hover, .ct-chip:hover {
+	background: rgba(169, 184, 234, 0.16);
+	border-color: rgba(169, 184, 234, 0.5);
+	color: #ffffff;
+}
+
+.ct-tool.is-active {
+	background: linear-gradient(to right, var(--accent), var(--accent2));
+	border-color: transparent;
+	color: #1a1533;
+}
+
+.ct-ghost {
+	color: rgba(255, 255, 255, 0.65);
+}
+
+#ct-canvas {
+	display: block;
+	width: 100%;
+	height: auto;
+	touch-action: none;
+	user-select: none;
+	-webkit-user-select: none;
+	background: rgba(8, 7, 24, 0.45);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	border-radius: 10px;
+}
+
+#ct-canvas.tool-vertex { cursor: crosshair; }
+#ct-canvas.tool-edge { cursor: cell; }
+#ct-canvas.tool-erase { cursor: not-allowed; }
+
+#ct-canvas .ct-edge {
+	stroke: rgba(255, 255, 255, 0.85);
+	stroke-width: 3;
+	stroke-linecap: round;
+}
+
+#ct-canvas .ct-edge-hit {
+	stroke: transparent;
+	stroke-width: 18;
+}
+
+#ct-canvas .ct-dir {
+	stroke: var(--accent);
+	stroke-width: 2.4;
+	stroke-linecap: round;
+}
+
+#ct-canvas .ct-arrowhead {
+	fill: var(--accent);
+}
+
+#ct-canvas .ct-rubber {
+	stroke: var(--accent);
+	stroke-width: 2.4;
+	stroke-dasharray: 6 6;
+	stroke-linecap: round;
+	pointer-events: none;
+}
+
+#ct-canvas .ct-vertex {
+	cursor: pointer;
+	outline: none;
+}
+
+#ct-canvas.tool-move .ct-vertex { cursor: grab; }
+
+#ct-canvas .ct-vertex circle {
+	fill: #1b1a33;
+	stroke: #ffffff;
+	stroke-width: 2.4;
+	transition: fill 0.15s ease, stroke 0.15s ease;
+}
+
+#ct-canvas .ct-vertex text {
+	fill: #ffffff;
+	font-family: "Inter", sans-serif;
+	font-size: 16px;
+	font-weight: 600;
+	pointer-events: none;
+}
+
+#ct-canvas .ct-vertex:hover circle {
+	stroke: var(--accent);
+}
+
+#ct-canvas .ct-vertex.is-pending circle {
+	stroke: var(--accent2);
+	stroke-width: 4;
+}
+
+#ct-canvas .ct-vertex.is-root circle {
+	fill: var(--accent);
+	stroke: #ffffff;
+}
+
+#ct-canvas .ct-vertex.is-root text:not(.ct-roottag) {
+	fill: #1a1533;
+}
+
+#ct-canvas .ct-roottag {
+	fill: var(--accent) !important;
+	font-size: 12px !important;
+	font-weight: 500 !important;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+
+.ct-hint {
+	margin: 0.8em 0 0.2em 0;
+	font-size: 0.85em;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.ct-status {
+	min-height: 1.4em;
+	margin: 0 0 0.6em 0;
+	font-size: 0.85em;
+	color: #ffb4a8;
+}
+
+.ct-presets {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5em;
+}
+
+.ct-presets > span {
+	margin-right: 0.3em;
+	font-size: 0.75em;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.55);
+}
+
+.ct-placeholder {
+	padding: 1em 1.2em;
+	border: 1px dashed var(--card-border);
+	border-radius: 12px;
+}
+
+.ct-rootinfo {
+	font-size: 0.85em;
+	letter-spacing: 0.04em;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.ct-formula {
+	overflow-x: auto;
+	overflow-y: hidden;
+	padding: 0.4em 0;
+	color: #ffffff;
+	font-size: 1.05em;
+}
+
+.ct-formula .katex-display {
+	margin: 0.3em 0;
+}
+
+.ct-formula-card .ct-coef {
+	margin-top: 0.4em;
+	padding-top: 0.8em;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ct-actions {
+	margin-top: 0.4em;
+	text-align: right;
+}
+
+.ct-defs {
+	overflow-x: auto;
+	color: #ffffff;
+}
+
+.ct-region {
+	margin-top: 1em;
+}
+
+.ct-region .katex {
+	color: #ffffff;
+}
+
+.ct-matrices .ct-formula {
+	margin: 0.4em 0;
+}
+
+#ct-steps {
+	margin-top: 1.4em;
+}
+
+#ct-steps summary {
+	margin-bottom: 0.4em;
+}
+
+.prose .katex {
+	font-size: 1em;
+}
+
+@media screen and (max-width: 736px) {
+	.ct-card {
+		padding: 0.9em 0.8em;
+	}
+
+	.ct-formula {
+		font-size: 0.9em;
+	}
+}
+
+.ct-defs {
+	padding: 0.4em 1.2em;
+}
+
+.ct-def {
+	display: grid;
+	grid-template-columns: 10em 1fr;
+	gap: 1.2em;
+	align-items: center;
+	padding: 0.8em 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ct-def:last-child {
+	border-bottom: 0;
+}
+
+.ct-def-name {
+	font-size: 0.75em;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.ct-def-math {
+	overflow-x: auto;
+	overflow-y: hidden;
+	color: #ffffff;
+}
+
+@media screen and (max-width: 736px) {
+	.ct-def {
+		grid-template-columns: 1fr;
+		gap: 0.3em;
+	}
+}
+
+/* KaTeX uses an "inner" helper class (for \neq, \not, overlaps). Keep the template's .inner layout off it. */
+.katex .inner {
+	width: auto !important;
+	max-width: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* ---- Correlator tool: full correlator ---- */
+
+.ct-optional {
+	display: inline-block;
+	margin-left: 0.8em;
+	padding: 0.1em 0.8em;
+	vertical-align: middle;
+	font-size: 0.55em;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--accent);
+	border: 1px solid rgba(169, 184, 234, 0.45);
+	border-radius: 999px;
+}
+
+.ct-order-label {
+	margin: 0 0 0.6em 0;
+	font-size: 0.75em;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.55);
+}
+
+.ct-order {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4em;
+	margin-bottom: 1em;
+	min-height: 2.2em;
+}
+
+.ct-ord {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.15em;
+	padding: 0.1em 0.3em;
+	color: #ffffff;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid var(--card-border);
+	border-radius: 999px;
+}
+
+.ct-ord span {
+	min-width: 1.8em;
+	text-align: center;
+	font-size: 0.95em;
+}
+
+.ct-ord button {
+	width: 1.8em;
+	height: 1.8em;
+	min-width: 0;
+	margin: 0;
+	padding: 0;
+	line-height: 1.7em;
+	font-size: 1.1em;
+	text-align: center;
+	color: rgba(255, 255, 255, 0.8);
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+	cursor: pointer;
+}
+
+.ct-ord button:hover:not(:disabled) {
+	color: var(--accent);
+}
+
+.ct-ord button:disabled {
+	opacity: 0.25;
+	cursor: default;
+}
+
+.ct-ord-sep {
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.ct-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6em;
+}
+
+.ct-chip.ct-primary {
+	background: linear-gradient(to right, var(--accent), var(--accent2));
+	border-color: transparent;
+	color: #1a1533;
+}
+
+.ct-chip.ct-primary:hover {
+	background: #ffffff;
+	color: #1a1533;
+}
+
+.ct-chip:disabled {
+	opacity: 0.4;
+	cursor: default;
+}
+
+.ct-actions-right {
+	margin: 1em 0 0.4em 0;
+	text-align: right;
+}
+
+.ct-eq {
+	margin: 0.2em 0;
+}
+
+.ct-config {
+	margin: 0.8em 0;
+	padding: 0.6em 1em;
+	background: var(--card);
+	border: 1px solid var(--card-border);
+	border-radius: 12px;
+}
+
+details.ct-config > summary {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0.4em 0 0.4em 1.5em;
+	font-size: 0.8em;
+}
+
+details.ct-config > summary > span {
+	color: rgba(255, 255, 255, 0.85);
+}
+
+.ct-mini {
+	flex: 0 0 auto;
+	width: 120px;
+	height: auto;
+}
+
+.ct-mini .ct-mini-e {
+	stroke: rgba(255, 255, 255, 0.8);
+	stroke-width: 1.8;
+}
+
+.ct-mini .ct-mini-cut {
+	stroke-dasharray: 3 3;
+	stroke: rgba(255, 255, 255, 0.5);
+}
+
+.ct-mini .ct-mini-v {
+	stroke: #ffffff;
+	stroke-width: 1.8;
+}
+
+.ct-mini .ct-mini-plus {
+	fill: var(--accent);
+}
+
+.ct-mini .ct-mini-minus {
+	fill: #1b1a33;
+}
+
+.ct-config-body {
+	padding-top: 0.6em;
+}
+
+.ct-cluster-title {
+	margin: 1.4em 0 0.2em 0;
+	font-size: 0.8em;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.75);
+}
+
+.ct-term-title {
+	margin: 1.1em 0 0 0;
+	padding-left: 0.8em;
+	font-size: 0.8em;
+	color: rgba(255, 255, 255, 0.55);
+	border-left: 2px solid rgba(169, 184, 234, 0.45);
+}
+
+/* Definition rows: display maths never wraps; left-aligned, scrolls sideways if needed */
+.ct-def-math .katex-display {
+	margin: 0;
+	text-align: left;
+}
+
+.ct-def-math .katex-display > .katex {
+	text-align: left;
+}
+
+.ct-cond {
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.ct-eq:empty {
+	min-height: 2.6em;
+}
+
+/* Progress bar */
+.ct-progress {
+	margin: 1.1em 0 0.2em 0;
+}
+
+.ct-progress-track {
+	position: relative;
+	height: 0.55em;
+	overflow: hidden;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 999px;
+}
+
+.ct-progress-fill {
+	display: block;
+	width: 0;
+	height: 100%;
+	min-width: 0.55em;
+	background: linear-gradient(to right, var(--accent), var(--accent2));
+	border-radius: 999px;
+	transition: width 0.15s linear;
+}
+
+.ct-progress-label {
+	margin: 0.5em 0 0 0;
+	font-size: 0.8em;
+	letter-spacing: 0.04em;
+	color: rgba(255, 255, 255, 0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ct-progress-fill {
+		transition: none;
+	}
+}
