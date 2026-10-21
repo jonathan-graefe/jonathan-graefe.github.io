@@ -1,3 +1,12 @@
+/* Static background on touch screens: fix the height of the background layer to the longest side of the
+   screen, so it is never resized when the browser's address bar appears or disappears. */
+(function () {
+	if (!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches)) return;
+	var s = window.screen || {};
+	var h = Math.max(s.height || 0, s.width || 0, window.innerHeight || 0);
+	if (h) document.documentElement.style.setProperty('--bg-h', h + 'px');
+})();
+
 /* Gentle motion: content rises into view while scrolling, and pages fade between each other.
    Everything is skipped when the visitor prefers reduced motion. */
 (function () {

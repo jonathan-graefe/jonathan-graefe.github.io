@@ -17,12 +17,14 @@
 /* ---- Page background (compressed image instead of the 24 MB original) ---- */
 
 body {
-	background-color: #14132b;
+	background-color: transparent;
 	background-image: none;
 	background-attachment: scroll;
 }
 
-/* A fixed layer instead of background-attachment: fixed, which jumps on phones */
+/* A fixed layer instead of background-attachment: fixed, which jumps on phones.
+   It has its own compositor layer and, on touch screens, a constant pixel height
+   (set in motion.js) so that it is never resized while the browser's address bar slides away. */
 body:before {
 	content: "";
 	position: fixed;
@@ -32,12 +34,20 @@ body:before {
 	width: 100%;
 	height: 100vh;
 	height: 100lvh;
+	height: var(--bg-h, 100lvh);
 	background-color: #14132b;
 	background-image: linear-gradient(to top, rgba(10, 9, 26, 0.75), rgba(10, 9, 26, 0.75)), url("../../images/bg.jpg");
 	background-size: auto, cover;
 	background-position: center, center;
 	background-repeat: no-repeat;
 	pointer-events: none;
+	transform: translate3d(0, 0, 0);
+	backface-visibility: hidden;
+	will-change: transform;
+}
+
+html {
+	background-color: #14132b;
 }
 
 /* ---- Typography ---- */
