@@ -1959,3 +1959,132 @@ details.ct-config:not([open]) > .ct-config-body {
 details.ct-config::details-content {
 	contain-intrinsic-size: none;
 }
+
+/* ---- Dressing rules diagrams ---- */
+
+.dress-diagram svg .node {
+	fill: rgba(255, 255, 255, 0.05);
+	stroke: rgba(255, 255, 255, 0.55);
+	stroke-width: 2;
+}
+
+.dress-diagram svg .node.acc {
+	fill: rgba(169, 184, 234, 0.16);
+	stroke: var(--accent);
+}
+
+.dress-diagram svg .t {
+	fill: rgba(255, 255, 255, 0.95);
+	font-family: "Inter", sans-serif;
+	font-size: 28px;
+	font-weight: 600;
+}
+
+.dress-diagram svg .s {
+	fill: rgba(255, 255, 255, 0.65);
+	font-family: "Inter", sans-serif;
+	font-size: 22px;
+}
+
+.dress-diagram svg .s.mid {
+	fill: var(--accent);
+	font-size: 24px;
+}
+
+.dress-diagram svg .ar {
+	fill: none;
+	stroke: rgba(255, 255, 255, 0.85);
+	stroke-width: 3;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.dress-diagram svg .prop {
+	fill: none;
+	stroke: var(--accent);
+	stroke-width: 2.6;
+	stroke-linecap: round;
+}
+
+.dress-diagram svg .bdry {
+	stroke: rgba(255, 255, 255, 0.5);
+	stroke-width: 2;
+	stroke-dasharray: 9 8;
+}
+
+.dress-diagram svg .end {
+	fill: #1b1a33;
+	stroke: rgba(255, 255, 255, 0.85);
+	stroke-width: 2;
+}
+
+.dress-diagram svg .dress {
+	stroke: var(--accent);
+	stroke-width: 2.6;
+	stroke-dasharray: 3 9;
+	stroke-linecap: round;
+}
+
+.dress-diagram svg .dot {
+	fill: var(--accent);
+}
+
+.dress-diagram svg .lab {
+	fill: rgba(255, 255, 255, 0.88);
+	font-family: "Inter", sans-serif;
+	font-size: 32px;
+}
+
+.dress-diagram svg .lab.acc {
+	fill: var(--accent);
+}
+
+.dress-diagram svg .lab.small {
+	font-size: 24px;
+}
+
+.dress-diagram svg .leg.ext {
+	stroke: rgba(255, 255, 255, 0.5);
+}
+
+.dress-diagram svg .end.ext {
+	stroke: rgba(255, 255, 255, 0.5);
+}
+
+.dress-diagram svg .lab.grey {
+	fill: rgba(255, 255, 255, 0.6);
+}
+
+.dress-diagram svg .it {
+	font-style: italic;
+}
+
+.dress-diagram svg .sub {
+	font-size: 0.7em;
+	baseline-shift: sub;
+}
+
+.dress-diagram svg .ah {
+	fill: none;
+	stroke-width: 2.8;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.dress-diagram svg .ah.acc { stroke: var(--accent); }
+.dress-diagram svg .ah.opp { stroke: var(--accent2); }
+
+.dress-diagram svg .prop.opp { stroke: var(--accent2); }
+
+.dress-diagram svg .src {
+	fill: var(--accent2);
+	stroke: #1b1a33;
+	stroke-width: 3;
+}
+
+.dress-diagram svg .lab.opp { fill: var(--accent2); }
+
+.dress-diagram svg .sep {
+	stroke: rgba(255, 255, 255, 0.14);
+	stroke-width: 1.5;
+}

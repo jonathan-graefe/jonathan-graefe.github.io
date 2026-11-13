@@ -15,7 +15,7 @@
 		<link rel="apple-touch-icon" href="apple-touch-icon.png" />
 		<meta name="theme-color" content="#14132b" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/custom.css?v=6a730146" />
+		<link rel="stylesheet" href="assets/css/custom.css?v=da5588e7" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
@@ -267,6 +267,144 @@
 </figure>
 <p class="paper-links">Read the paper: <a href="https://arxiv.org/abs/2607.18223">All Tree-Level Massive Cosmological Correlators via Spectral Gluing</a></p>
 <p class="paper-links">Try it yourself: <a href="correlator-tool.html">Interactive correlator tool</a></p>
+<h3 class="major">Dressing Rules for Massive Scalars</h3>
+<p>Cosmological correlators can be computed in different ways. Harmonic analysis makes use of the symmetries of de Sitter space and writes correlators as a Kontorovich-Lebedev-Fourier (KLF) integral over the mass parameter. Dressing rules, on the other hand, map every de Sitter diagram to a flat-space diagram: each vertex is &quot;dressed&quot; with an auxiliary line that carries energy, and all of these lines meet in a single dressing point. The energies are directed: they flow along the lines of the flat-space diagram, and the dressing lines carry them to or from the dressing point. Together with Matthias Nowinski, Ivo Sachs and Siva Pawan Venna, I showed that the two descriptions are equivalent. They are two readings of the same Sturm-Liouville problem, the equation of motion of a scalar field in de Sitter space, with either the mass parameter or the energy as spectral variable.</p>
+<p>Starting from the energy representation, we generalized the dressing rules, which were previously known for conformally coupled scalars, to scalar fields of arbitrary mass. The auxiliary propagators take the form of Euler integrals, so that the familiar diagrammatic tools of flat space become available for massive fields. For generic masses the rules contain a second kind of line, which we call an oppagator. It has no direction of its own, so it has no flat-space analogue, and it ties together the Schwinger-Keldysh indices of the vertices it connects. A second version of the rules, the shadow dressing rules, avoids this complication.</p>
+<figure class="research-figure diagram dress-diagram">
+<svg viewBox="0 0 1010 610" role="img" aria-label="Roadmap: the Sturm-Liouville problem of a scalar field in de Sitter space can be read in two ways, as the KLF representation with the mass parameter as spectral variable or as the energy representation with the energy as spectral variable, linked by transition identities. From the energy representation one obtains generalized dressing rules with flat-space propagators and oppagators and shadow dressing rules with Bessel orders plus and minus nu. For nu equal to n plus one half both reduce to the original dressing rules for conformally coupled scalars.">
+<rect class="node" x="275" y="10" width="460" height="92" rx="16"/>
+<text class="t" x="505.0" y="50.0" text-anchor="middle">Sturm&#8211;Liouville problem</text>
+<text class="s" x="505.0" y="82.0" text-anchor="middle">scalar field in de Sitter space</text>
+<rect class="node" x="20" y="172" width="420" height="96" rx="16"/>
+<text class="t" x="230.0" y="214.0" text-anchor="middle">KLF representation</text>
+<text class="s" x="230.0" y="246.0" text-anchor="middle">spectral variable: mass parameter &#956;</text>
+<rect class="node" x="570" y="172" width="420" height="96" rx="16"/>
+<text class="t" x="780.0" y="214.0" text-anchor="middle">Energy representation</text>
+<text class="s" x="780.0" y="246.0" text-anchor="middle">spectral variable: energy <tspan class="it">p</tspan></text>
+<line class="ar" x1="430" y1="102" x2="300" y2="168"/>
+<polyline class="ar" points="309,156 300,168 315,168"/>
+<line class="ar" x1="580" y1="102" x2="710" y2="168"/>
+<polyline class="ar" points="695,168 710,168 701,156"/>
+<line class="ar" x1="452" y1="220" x2="558" y2="220"/>
+<polyline class="ar" points="544,227 558,220 544,213"/>
+<polyline class="ar" points="466,213 452,220 466,227"/>
+<text class="s mid" x="505" y="148" text-anchor="middle">transition identities</text>
+<rect class="node acc" x="20" y="338" width="440" height="96" rx="16"/>
+<text class="t" x="240.0" y="380.0" text-anchor="middle">Generalized dressing rules</text>
+<text class="s" x="240.0" y="412.0" text-anchor="middle">flat-space propagators and oppagators</text>
+<rect class="node acc" x="550" y="338" width="440" height="96" rx="16"/>
+<text class="t" x="770.0" y="380.0" text-anchor="middle">Shadow dressing rules</text>
+<text class="s" x="770.0" y="412.0" text-anchor="middle">Bessel orders &#177;&#957;</text>
+<line class="ar" x1="690" y1="268" x2="340" y2="334"/>
+<polyline class="ar" points="352,325 340,334 354,338"/>
+<line class="ar" x1="790" y1="268" x2="770" y2="334"/>
+<polyline class="ar" points="768,319 770,334 780,323"/>
+<rect class="node" x="215" y="500" width="580" height="96" rx="16"/>
+<text class="t" x="505.0" y="542.0" text-anchor="middle">Original dressing rules</text>
+<text class="s" x="505.0" y="574.0" text-anchor="middle">conformally coupled scalars, &#957; = <tspan class="it">n</tspan> + &#189;</text>
+<line class="ar" x1="260" y1="434" x2="380" y2="496"/>
+<polyline class="ar" points="365,496 380,496 371,484"/>
+<line class="ar" x1="750" y1="434" x2="630" y2="496"/>
+<polyline class="ar" points="639,484 630,496 645,496"/>
+</svg>
+<figcaption>The same Sturm&#8211;Liouville problem can be read in two ways: with the mass parameter as spectral variable (harmonic analysis, the KLF representation) or with the energy as spectral variable (dressed flat-space correlators). Starting from the energy representation we obtain generalized and shadow dressing rules for scalars of arbitrary mass (highlighted, the new results), which reduce to the original dressing rules for conformally coupled fields. <span class="fig-source">Sketched after a figure in <a href="https://arxiv.org/abs/2611.15870">arXiv:2611.15870</a>.</span></figcaption>
+</figure>
+<figure class="research-figure diagram dress-diagram">
+<svg viewBox="0 0 1010 415" role="img" aria-label="Schematic of the dressing rules for a tree-level exchange with cubic vertices. A de Sitter diagram hanging from a dashed late-time boundary is computed from the flat-space diagram. Its internal line is directed and carries energy p and momentum q from the first to the second vertex. Each vertex has a dotted dressing line with an arrow towards the dressing point, carrying the outflowing energy P: P1 equals minus p and P2 equals p. External legs carry momenta but no energy.">
+<line class="bdry" x1="20" y1="60" x2="440" y2="60"/>
+<line class="leg" x1="130" y1="205" x2="70" y2="60"/>
+<circle class="end" cx="70" cy="60" r="6"/>
+<line class="leg" x1="130" y1="205" x2="122" y2="60"/>
+<circle class="end" cx="122" cy="60" r="6"/>
+<line class="leg" x1="330" y1="205" x2="338" y2="60"/>
+<circle class="end" cx="338" cy="60" r="6"/>
+<line class="leg" x1="330" y1="205" x2="390" y2="60"/>
+<circle class="end" cx="390" cy="60" r="6"/>
+<line class="prop" x1="130" y1="205" x2="330" y2="205"/>
+<circle class="v" cx="130" cy="205" r="6"/>
+<circle class="v" cx="330" cy="205" r="6"/>
+<text class="lab acc" x="505" y="178" text-anchor="middle">dressing</text>
+<line class="ar" x1="445" y1="205" x2="565" y2="205"/>
+<polyline class="ar" points="551.8,212.2 565.0,205.0 551.8,197.8"/>
+<line class="leg ext" x1="690" y1="165" x2="628" y2="60"/>
+<circle class="end ext" cx="628" cy="60" r="5"/>
+<text class="lab small grey" x="628" y="46" text-anchor="middle">k<tspan class="sub">1</tspan></text>
+<line class="leg ext" x1="690" y1="165" x2="678" y2="60"/>
+<circle class="end ext" cx="678" cy="60" r="5"/>
+<text class="lab small grey" x="678" y="46" text-anchor="middle">k<tspan class="sub">2</tspan></text>
+<line class="leg ext" x1="890" y1="165" x2="902" y2="60"/>
+<circle class="end ext" cx="902" cy="60" r="5"/>
+<text class="lab small grey" x="902" y="46" text-anchor="middle">k<tspan class="sub">3</tspan></text>
+<line class="leg ext" x1="890" y1="165" x2="952" y2="60"/>
+<circle class="end ext" cx="952" cy="60" r="5"/>
+<text class="lab small grey" x="952" y="46" text-anchor="middle">k<tspan class="sub">4</tspan></text>
+<line class="prop" x1="690" y1="165" x2="890" y2="165"/>
+<polyline class="ah acc" points="776.8,172.2 790.0,165.0 776.8,157.8"/>
+<circle class="v" cx="690" cy="165" r="6"/>
+<circle class="v" cx="890" cy="165" r="6"/>
+<text class="lab small acc" x="790" y="147" text-anchor="middle"><tspan class="it">p</tspan>, <tspan class="it">q</tspan></text>
+<line class="dress" x1="690" y1="165" x2="790" y2="300"/>
+<polyline class="ah acc" points="729.3,229.3 742.0,235.2 740.1,221.3"/>
+<line class="dress" x1="890" y1="165" x2="790" y2="300"/>
+<polyline class="ah acc" points="839.9,221.3 838.0,235.2 850.7,229.3"/>
+<circle class="dot" cx="790" cy="300" r="9"/>
+<text class="lab small acc" x="692" y="262" text-anchor="end"><tspan class="it">P</tspan><tspan class="sub">1</tspan> = &#8722;<tspan class="it">p</tspan></text>
+<text class="lab small acc" x="888" y="262" text-anchor="start"><tspan class="it">P</tspan><tspan class="sub">2</tspan> = <tspan class="it">p</tspan></text>
+<text class="lab small acc" x="790" y="338" text-anchor="middle">dressing point</text>
+<text class="lab" x="230" y="392" text-anchor="middle">de Sitter diagram</text>
+<text class="lab" x="790" y="392" text-anchor="middle">flat-space diagram</text>
+</svg>
+<figcaption>The idea of the dressing rules, shown for a tree-level exchange with cubic vertices (schematic): a de Sitter diagram (left) is computed from the corresponding flat-space diagram (right). Energies are directed. External legs carry spatial momenta but no energy, and internal lines carry an energy <i>p</i> and a momentum <i>q</i> along their arrow. Every vertex gets a dressing line (dotted) with an outflowing energy <i>P</i> but no momentum, here <i>P</i><sub>1</sub> = &#8722;<i>p</i> and <i>P</i><sub>2</sub> = <i>p</i>. All dressing lines meet in one dressing point, where the energy is conserved automatically.</figcaption>
+</figure>
+<figure class="research-figure diagram dress-diagram">
+<svg viewBox="0 0 1010 440" role="img" aria-label="Left: a propagator is a directed line, with the energy p flowing from one vertex to the other, while an oppagator has no direction and its middle is a source of energy flowing into both end vertices. Right: a tree-level exchange with an oppagator between two vertices; both dressing lines carry the energy p to the dressing point, which therefore absorbs twice p.">
+<line class="sep" x1="495" y1="20" x2="495" y2="400"/>
+<text class="lab small" x="30" y="52" text-anchor="start">propagator</text>
+<line class="prop" x1="70" y1="112" x2="400" y2="112"/>
+<polyline class="ah acc" points="221.8,119.2 235.0,112.0 221.8,104.8"/>
+<circle class="v" cx="70" cy="112" r="6"/>
+<circle class="v" cx="400" cy="112" r="6"/>
+<text class="lab small acc" x="235" y="90" text-anchor="middle"><tspan class="it">p</tspan></text>
+<text class="s" x="30" y="165" text-anchor="start">energy flows from one vertex to the other</text>
+<text class="lab small" x="30" y="232" text-anchor="start">oppagator</text>
+<line class="prop opp" x1="70" y1="292" x2="400" y2="292"/>
+<polyline class="ah opp" points="161.2,284.8 148.0,292.0 161.2,299.2"/>
+<polyline class="ah opp" points="308.8,299.2 322.0,292.0 308.8,284.8"/>
+<circle class="src" cx="235" cy="292" r="9"/>
+<circle class="v" cx="70" cy="292" r="6"/>
+<circle class="v" cx="400" cy="292" r="6"/>
+<text class="lab small opp" x="148" y="270" text-anchor="middle"><tspan class="it">p</tspan></text>
+<text class="lab small opp" x="322" y="270" text-anchor="middle"><tspan class="it">p</tspan></text>
+<text class="s" x="30" y="345" text-anchor="start">no direction: the middle is a source</text>
+<line class="leg ext" x1="600" y1="175" x2="545" y2="70"/>
+<circle class="end ext" cx="545" cy="70" r="5"/>
+<line class="leg ext" x1="600" y1="175" x2="595" y2="70"/>
+<circle class="end ext" cx="595" cy="70" r="5"/>
+<line class="leg ext" x1="900" y1="175" x2="905" y2="70"/>
+<circle class="end ext" cx="905" cy="70" r="5"/>
+<line class="leg ext" x1="900" y1="175" x2="955" y2="70"/>
+<circle class="end ext" cx="955" cy="70" r="5"/>
+<line class="prop opp" x1="600" y1="175" x2="900" y2="175"/>
+<polyline class="ah opp" points="688.2,167.8 675.0,175.0 688.2,182.2"/>
+<polyline class="ah opp" points="811.8,182.2 825.0,175.0 811.8,167.8"/>
+<circle class="src" cx="750" cy="175" r="9"/>
+<text class="lab small opp" x="675" y="153" text-anchor="middle"><tspan class="it">p</tspan></text>
+<text class="lab small opp" x="825" y="153" text-anchor="middle"><tspan class="it">p</tspan></text>
+<circle class="v" cx="600" cy="175" r="6"/>
+<circle class="v" cx="900" cy="175" r="6"/>
+<line class="dress" x1="600" y1="175" x2="750" y2="325"/>
+<polyline class="ah acc" points="664.6,249.1 678.0,253.0 674.1,239.6"/>
+<line class="dress" x1="900" y1="175" x2="750" y2="325"/>
+<polyline class="ah acc" points="825.9,239.6 822.0,253.0 835.4,249.1"/>
+<circle class="dot" cx="750" cy="325" r="9"/>
+<text class="lab small acc" x="598" y="268" text-anchor="end"><tspan class="it">P</tspan><tspan class="sub">1</tspan> = <tspan class="it">p</tspan></text>
+<text class="lab small acc" x="902" y="268" text-anchor="start"><tspan class="it">P</tspan><tspan class="sub">2</tspan> = <tspan class="it">p</tspan></text>
+<text class="lab small acc" x="750" y="363" text-anchor="middle">dressing point</text>
+<text class="s" x="750" y="393" text-anchor="middle">absorbs 2<tspan class="it">p</tspan></text>
+</svg>
+<figcaption>The oppagator, which appears for generic masses (schematic). A propagator is directed: its energy <i>p</i> flows from one vertex to the other. An oppagator has no direction. Its middle acts as a source of energy that flows into both vertices, so that both dressing lines carry an energy to the dressing point, which then absorbs twice the oppagator energy, <i>P</i><sub>1</sub> + <i>P</i><sub>2</sub> = 2<i>p</i>.</figcaption>
+</figure>
+<p class="paper-links">Read the paper: <a href="https://arxiv.org/abs/2611.15870">Cosmological Dressing Rules for Massive Scalars</a></p>
 </article>
 
 									<ul class="actions page-links">
